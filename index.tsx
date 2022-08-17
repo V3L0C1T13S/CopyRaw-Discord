@@ -19,6 +19,9 @@ export default class rkCopyRaw extends RikkaPlugin {
   }
 
   private async patchContextMenu(): Promise<any> {
+    // Checking here since it can cause issues if the plugin is disabled before the patch is applied
+    if (!this.enabled) return;
+
     this.contextMenu = (await getModule(
       (m: any) => m.default?.displayName === "MessageContextMenu",
     )) as any;
